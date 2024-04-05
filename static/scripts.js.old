@@ -1,0 +1,36 @@
+function summarizeText() {
+    var text = document.getElementById("text-input").value;
+    fetch('/text_summarization', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            text: text
+        })
+    })
+    .then(response => response.json())
+    .then(data => {
+        document.getElementById("summary-result").innerHTML = "<h2>Text Summary</h2><p>" + data.summary + "</p>";
+    })
+    .catch(error => console.error('Error:', error));
+}
+
+function summarizeURL() {
+    var url = document.getElementById("url-input").value;
+    fetch('/web_summarization', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            url: url
+        })
+    })
+    .then(response => response.json())
+    .then(data => {
+        document.getElementById("summary-result").innerHTML = "<h2>Web Summary</h2><p>" + data.summary + "</p>";
+    })
+    .catch(error => console.error('Error:', error));
+}
+
